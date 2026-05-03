@@ -3,7 +3,7 @@ module coupon-service
 go 1.25.1
 
 require (
-	github.com/go-chi/chi/v5 v5.0.10
+	github.com/go-chi/chi/v5 v5.2.2
 	github.com/google/uuid v1.6.0
 	github.com/lib/pq v1.10.9
 	github.com/nats-io/nats.go v1.49.0
