@@ -19,7 +19,6 @@ import (
 	"google.golang.org/grpc"
 
 	grpcadapter "coupon-service/internal/adapter/grpc"
-	adminhttp "coupon-service/internal/adapter/http/admin_service"
 	publichttp "coupon-service/internal/adapter/http/claim-query"
 	natsadmin "coupon-service/internal/adapter/nats_admin"
 	natsadapter "coupon-service/internal/adapter/nats_claim"
@@ -48,12 +47,12 @@ import (
 
 	pb "coupon-service/proto/pb/order_service"
 	route "coupon-service/route"
-	gotracing "github.com/driftappdev/libpackage/gotracing"
 )
 
 func main() {
+	_ = servicecore.NewEngineUnifiedBundle(servicecore.LoadEngineUnifiedConfigFromEnv("coupon-service"))
 	appLogger := loggerwrapper.New("coupon-service")
-	gotracing.SetGlobalProvider(tracingwrapper.NewProvider("coupon-service"))
+	_ = tracingwrapper.NewProvider("coupon-service")
 
 	ctx, cancel := signal.NotifyContext(
 		context.Background(),
@@ -223,13 +222,13 @@ func main() {
 		go recoveryWorker.Start(ctx)
 	}
 
-	if features.EnableNATSConsumer && natsJS != nil && adminService != nil {
+	if features.EnableNATSConsumer && natsJS != nil && adminFlow != nil {
 		adminConsumer := natsadmin.NewAdminCouponConsumer(
 			natsJS,
 			cfg.NATS.AdminStream,
 			cfg.NATS.AdminSubject,
 			cfg.NATS.AdminDurable,
-			adminService,
+			adminFlow,
 		)
 		go func() {
 			if err := adminConsumer.Start(ctx); err != nil {
@@ -238,12 +237,11 @@ func main() {
 		}()
 	}
 
-	if features.EnableHTTP && publicFlow != nil && adminFlow != nil {
+	if features.EnableHTTP && publicFlow != nil {
 		router := chi.NewRouter()
 		router.Get("/metrics/app", metricswrapper.Handler())
 		publicHandler := publichttp.NewCouponHTTPHandler(publicFlow)
-		adminHandler := adminhttp.NewCouponAdminHTTPHandler(adminFlow)
-		route.RegisterRoutes(router, publicHandler, adminHandler)
+		route.RegisterRoutes(router, publicHandler)
 
 		var handler http.Handler = router
 		middlewares := servicecore.DefaultHTTPMiddlewares()

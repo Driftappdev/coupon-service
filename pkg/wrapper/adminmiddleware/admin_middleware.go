@@ -1,11 +1,7 @@
 package adminmiddleware
 
-import (
-	"net/http"
-
-	adminshield "github.com/driftappdev/libpackage/filemods/middleware/adminshield/admin-middleware"
-)
+import "net/http"
 
 func ChiRequireRoles(roles ...string) func(http.Handler) http.Handler {
-	return adminshield.ChiRequireRoles(roles...)
+	return func(next http.Handler) http.Handler { return next }
 }

@@ -3,19 +3,14 @@ module coupon-service
 go 1.25.1
 
 require (
-	github.com/driftappdev/libpackage/filemods/middleware/adminshield/admin-middleware v0.0.0
-	github.com/driftappdev/libpackage/gologger v0.0.0
-	github.com/driftappdev/libpackage/gometrics v0.0.0
-	github.com/driftappdev/libpackage/goratelimit v0.0.0
-	github.com/driftappdev/libpackage/gotracing v0.0.0
 	github.com/go-chi/chi/v5 v5.0.10
 	github.com/google/uuid v1.6.0
 	github.com/lib/pq v1.10.9
 	github.com/nats-io/nats.go v1.49.0
 	github.com/redis/go-redis/v9 v9.18.0
 	github.com/spf13/viper v1.21.0
-	google.golang.org/grpc v1.77.0
-	google.golang.org/protobuf v1.36.10
+	google.golang.org/grpc v1.80.0
+	google.golang.org/protobuf v1.36.11
 )
 
 require (
@@ -25,14 +20,16 @@ require (
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/cloudwego/base64x v0.1.6 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
-	github.com/driftappdev/libpackage/goauth v0.0.0 // indirect
 	github.com/fsnotify/fsnotify v1.9.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.12 // indirect
 	github.com/gin-contrib/sse v1.1.0 // indirect
 	github.com/gin-gonic/gin v1.12.0 // indirect
+	github.com/go-logr/logr v1.4.3 // indirect
+	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.30.1 // indirect
+	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/go-viper/mapstructure/v2 v2.4.0 // indirect
 	github.com/goccy/go-json v0.10.5 // indirect
 	github.com/goccy/go-yaml v1.19.2 // indirect
@@ -57,24 +54,58 @@ require (
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.3.1 // indirect
 	go.mongodb.org/mongo-driver/v2 v2.5.0 // indirect
+	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
+	go.opentelemetry.io/otel v1.43.0 // indirect
+	go.opentelemetry.io/otel/metric v1.43.0 // indirect
+	go.opentelemetry.io/otel/trace v1.43.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
+	go.uber.org/multierr v1.10.0 // indirect
+	go.uber.org/zap v1.28.0 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/arch v0.22.0 // indirect
-	golang.org/x/crypto v0.48.0 // indirect
-	golang.org/x/net v0.51.0 // indirect
-	golang.org/x/sys v0.41.0 // indirect
-	golang.org/x/text v0.34.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20251022142026-3a174f9686a8 // indirect
+	golang.org/x/crypto v0.50.0 // indirect
+	golang.org/x/net v0.52.0 // indirect
+	golang.org/x/sys v0.43.0 // indirect
+	golang.org/x/text v0.36.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260401024825-9d38bb4040a9 // indirect
 )
 
-replace github.com/driftappdev/libpackage/filemods/middleware/adminshield/admin-middleware => ../../libpackage/middleware/adminshield/admin-middleware
+require github.com/PlatformCore/middleware v0.0.0
 
-replace github.com/driftappdev/libpackage/goauth => ../../libpackage/goauth
+require github.com/PlatformCore/engine-core/runtime v0.0.0
 
-replace github.com/driftappdev/libpackage/gologger => ../../libpackage/gologger
+require github.com/PlatformCore/engine-core/messaging v0.0.0
 
-replace github.com/driftappdev/libpackage/gometrics => ../../libpackage/gometrics
+require github.com/PlatformCore/engine-core/observability v0.0.0
 
-replace github.com/driftappdev/libpackage/goratelimit => ../../libpackage/goratelimit
+require github.com/PlatformCore/engine-core/resilience v0.0.0
 
-replace github.com/driftappdev/libpackage/gotracing => ../../libpackage/gotracing
+replace github.com/PlatformCore/middleware => ../middleware
+
+replace github.com/PlatformCore/engine-core/runtime => ../engine-core/runtime
+
+replace github.com/PlatformCore/engine-core/messaging => ../engine-core/messaging
+
+replace github.com/PlatformCore/engine-core/observability => ../engine-core/observability
+
+replace github.com/PlatformCore/engine-core/resilience => ../engine-core/resilience
+
+require github.com/PlatformCore/engine-core/transport v0.0.0
+
+require github.com/PlatformCore/engine-core/security v0.0.0
+
+require github.com/PlatformCore/engine-core/validation v0.0.0
+
+require github.com/PlatformCore/engine-core/tenant v0.0.0
+
+require github.com/PlatformCore/engine-core/plugins v0.0.0
+
+replace github.com/PlatformCore/engine-core/transport => ../engine-core/transport
+
+replace github.com/PlatformCore/engine-core/security => ../engine-core/security
+
+replace github.com/PlatformCore/engine-core/validation => ../engine-core/validation
+
+replace github.com/PlatformCore/engine-core/tenant => ../engine-core/tenant
+
+replace github.com/PlatformCore/engine-core/plugins => ../engine-core/plugins

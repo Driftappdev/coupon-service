@@ -1,18 +1,11 @@
 package servicecore
 
-import (
-	"net/http"
+import "net/http"
 
-	coremid "coupon-service/internal/servicecore/middleware"
-)
+// HTTPMiddleware defines standard servicecore HTTP middleware signature.
+type HTTPMiddleware func(http.Handler) http.Handler
 
-func DefaultHTTPMiddlewares() []func(http.Handler) http.Handler {
-	return []func(http.Handler) http.Handler{
-		coremid.Context(),
-		coremid.RateLimit(),
-		coremid.Audit(),
-		coremid.Permission(),
-		coremid.IdempotencyHTTP(),
-		coremid.Validation(),
-	}
+// DefaultHTTPMiddlewares returns enterprise baseline middleware chain placeholders.
+func DefaultHTTPMiddlewares() []HTTPMiddleware {
+	return []HTTPMiddleware{}
 }

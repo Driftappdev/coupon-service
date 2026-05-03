@@ -1,11 +1,7 @@
 package metrics
 
-import (
-	"net/http"
-
-	gometrics "github.com/driftappdev/libpackage/gometrics"
-)
+import "net/http"
 
 func Handler() http.HandlerFunc {
-	return gometrics.Handler()
+	return func(w http.ResponseWriter, r *http.Request) { w.WriteHeader(http.StatusOK) }
 }

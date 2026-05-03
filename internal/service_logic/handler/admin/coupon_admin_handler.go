@@ -3,7 +3,7 @@ package admin
 import (
 	"context"
 
-	httpport "coupon-service/internal/interface/http/admin"
+	adminport "coupon-service/internal/interface/admin"
 	serviceport "coupon-service/internal/interface/service/admin"
 	"coupon-service/internal/model"
 )
@@ -18,7 +18,7 @@ func NewCouponAdminHandler(service serviceport.CouponAdminService) *CouponAdminH
 	}
 }
 
-var _ httpport.CouponPort = (*CouponAdminHandler)(nil)
+var _ adminport.CouponCommandPort = (*CouponAdminHandler)(nil)
 
 func (h *CouponAdminHandler) CreateCoupon(
 	ctx context.Context,

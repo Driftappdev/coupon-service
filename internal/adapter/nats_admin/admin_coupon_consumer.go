@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
+	adminport "coupon-service/internal/interface/admin"
 	"coupon-service/internal/model"
-	adminsvc "coupon-service/internal/service_logic/service/admin"
 
 	"github.com/nats-io/nats.go"
 	"google.golang.org/protobuf/proto"
@@ -25,7 +25,7 @@ type AdminCouponConsumer struct {
 	stream   string
 	subject  string
 	durable  string
-	svc      *adminsvc.CouponManagementService
+	svc      adminport.CouponCommandPort
 	fetchMax int
 }
 
@@ -34,7 +34,7 @@ func NewAdminCouponConsumer(
 	stream string,
 	subject string,
 	durable string,
-	svc *adminsvc.CouponManagementService,
+	svc adminport.CouponCommandPort,
 ) *AdminCouponConsumer {
 	return &AdminCouponConsumer{
 		js:       js,

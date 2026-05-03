@@ -1,20 +1,14 @@
 package servicecore
 
-import "fmt"
-
-type AppError struct {
+// ServiceError is a local enterprise-safe error envelope for servicecore.
+type ServiceError struct {
 	Code    string
+	Status  int
 	Message string
-	Err     error
 }
 
-func (e *AppError) Error() string {
-	if e.Err == nil {
-		return fmt.Sprintf("%s: %s", e.Code, e.Message)
-	}
-	return fmt.Sprintf("%s: %s: %v", e.Code, e.Message, e.Err)
-}
+func (e *ServiceError) Error() string { return e.Message }
 
-func Wrap(code, message string, err error) error {
-	return &AppError{Code: code, Message: message, Err: err}
+func NewServiceError(code string, status int, message string) *ServiceError {
+	return &ServiceError{Code: code, Status: status, Message: message}
 }
